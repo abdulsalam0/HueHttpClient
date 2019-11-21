@@ -1,8 +1,6 @@
 import okhttp3.*;
-import org.json.JSONObject;
 import java.io.IOException;
-import java.util.Scanner;
-import java.net.URL;
+
 
 public class Client {
   OkHttpClient client = new OkHttpClient();
@@ -43,11 +41,10 @@ public class Client {
 
     //Json Data String
     String LoginData = ("{\"devicetype\":\"Team_C\"}");
-    String TurnOnLights = ("{\"on\":true}");
+    String TurnOnLightsData = ("{\"on\":true}");
 
-
-/*    String postResponseToken = client.post(URLCreateAccount,loginJson, "");
-    System.out.println(postResponseToken);*/
+    //Needs testing
+    String brightnessData = ("{\"bri\":10}");
 
     //Getting the Your_User_ID
     String YOUR_USERNAME = client.post(getUsername,LoginData);
@@ -60,16 +57,18 @@ public class Client {
 
     // link for lamp 1 and Turning on the lights
     String lightOnURL = "http://"+BRIDGE_IP+"/api/"+YOUR_USERNAME+"/lights/1/state";
-    String Response_lightsON = client.post(lightOnURL,TurnOnLights);
+    String Response_lightsON = client.post(lightOnURL,TurnOnLightsData);
     System.out.println("Response for Turing on the lights: "+ Response_lightsON);
 
 
-    ////////////////////////////////////////////////////////////////////////////////////
 
-    // This function needs to be sent for each angle update
+    ////////////////////////////////// Looping area ////////////////////////////////////////////
 
-    String Response_
+    // This Post Request need to be sent for each angle update
+    String brightnessURL = "http://"+BRIDGE_IP+"/api/"+YOUR_USERNAME+"/lights/1/state";
+    String Response_BRIGHTNESS = client.post(brightnessURL,brightnessData);
+    System.out.println("Brightness response: " + Response_BRIGHTNESS);
 
-
+    ////////////////////////////////////////////////////////////////////////////////////////////
   }
 }
